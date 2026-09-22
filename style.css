@@ -3,13 +3,19 @@
     box-sizing: border-box;
 }
 
+/* color accent: rgba(231, 108, 31, 1);
+color menu box : background: rgba(253, 234, 220, 1);
+color overlay background: rgba(54, 53, 52, 1);
+color font : background: rgba(54, 53, 52, 1);
+color overlay font : background: rgba(253, 234, 220, 1); */
+
 body {
     margin: 0 auto;
     background: rgba(255, 255, 255, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-x: hidden; /* 화면 밖으로 넘치는 가로 스크롤 방지 */
+    overflow-x: hidden;
 }
 
 .header-content {
@@ -70,7 +76,6 @@ body {
     margin-bottom: 32px;
 }
 
-/* 카테고리 바 배경: 뷰포트 전체로 뻗음 */
 .category-header {
     width: 100vw;
     height: 60px;
@@ -81,7 +86,6 @@ body {
     position: relative;
 }
 
-/* 카테고리 바 내부 콘텐츠: 1440px 경계 내부에 정렬 */
 .category-inner {
     max-width: 1440px;
     width: 100%;
@@ -89,14 +93,14 @@ body {
     display: flex;
     align-items: center;
     position: relative;
-    padding-left: 140px; /* 로고 공간 확보 */
+    padding-left: 140px;
 }
 
 .chanese-logo {
     height: 88px;
     width: 91px;
     position: absolute;
-    left: 16px; /* 1440px 박스 내부의 왼쪽 여백에 고정 */
+    left: 16px;
     bottom: 0px;
     z-index: 2;
 }
@@ -106,7 +110,6 @@ body {
     color: white;
 }
 
-/* 하위 콘텐츠와 장바구니 래퍼 */
 .content-wrapper {
     max-width: 1440px;
     width: 100%;
