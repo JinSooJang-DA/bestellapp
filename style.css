@@ -6,6 +6,7 @@
 body {
     margin: 0 auto;
     max-width: 1440px;
+    background-color: rgb(23, 81, 92) ;
     
     height: 1920px;    
     display: flex;
@@ -44,10 +45,11 @@ section {
 
 .basket-wrapper {
     width: 300px;
-    flex-grow:  1;
+    flex-shrink: 0;
     border: solid 2px red;
     padding: 16px;
 }
+
 footer {
     display: flex;
 }
