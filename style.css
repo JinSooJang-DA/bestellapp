@@ -5,30 +5,122 @@
 
 body {
     margin: 0 auto;
-    max-width: 1440px;
-    background-color: rgb(23, 81, 92) ;
-    
-    height: 1920px;    
+    background: rgba(255, 255, 255, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden; /* 화면 밖으로 넘치는 가로 스크롤 방지 */
 }
 
-header {
-    display: flex;
-}
-
-.content-wrapper {
-    width: 100%;
-    height: 100%;
+.header-content {
+    width: 100vw;
+    height: 128px;
+    background: rgba(231, 108, 31, 1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
     justify-content: center;
 }
-.content {
-    width: calc(100% - 308px);
-    padding: 16px;
-    border: solid 2px blue;
+
+.header-nav {
+    width: 100%;
+    max-width: 1440px;
+    padding: 12px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.header-logo {
+    height: 60px;
+    width: auto;
+    padding: 12px 32px;
+}
+
+.header-menu-icon {
+    height: 70px;
+    width: 70px;
+    padding: 12px 8px;
+}
+
+.landing-img {
+    position: relative;
+    margin-top: -50px;
+    width: 100%;
+    max-width: 1440px;
+}
+
+.hero-img {
+    width: 100%;
+    height: 508px;
+    object-fit: cover;
+}
+
+.restaurant-badge {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -100px;
+}
+
+.restaurant-info {
+    margin-top: 80px;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+/* 카테고리 바 배경: 뷰포트 전체로 뻗음 */
+.category-header {
+    width: 100vw;
+    height: 60px;
+    background-color: rgba(231, 108, 31, 1);
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+/* 카테고리 바 내부 콘텐츠: 1440px 경계 내부에 정렬 */
+.category-inner {
+    max-width: 1440px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 140px; /* 로고 공간 확보 */
+}
+
+.chanese-logo {
+    height: 88px;
+    width: 91px;
+    position: absolute;
+    left: 16px; /* 1440px 박스 내부의 왼쪽 여백에 고정 */
+    bottom: 0px;
+    z-index: 2;
+}
+
+.category-header h3 {
+    margin: 0;
+    color: white;
+}
+
+/* 하위 콘텐츠와 장바구니 래퍼 */
+.content-wrapper {
+    max-width: 1440px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+    padding: 16px;
+}
+
 section {
     display: block;
     unicode-bidi: isolate;
@@ -38,26 +130,28 @@ section {
     width: 100%;
     height: 1500px;
     font-size: 48px;
-    padding: 16px;
-    background-color: rgb(23, 81, 92);
-
 }
 
 .basket-wrapper {
-    width: 300px;
+    width: 435px;
     flex-shrink: 0;
-    border: solid 2px red;
     padding: 16px;
 }
 
 footer {
     display: flex;
+    width: 100%;
+    max-width: 1440px;
+    justify-content: center;
+    padding: 32px;
 }
 
 .basket {
     width: 100%;
     height: 400px;
-    background-color: cornflowerblue;
+    background-color: rgba(54, 53, 52, 1);
+    color: white;
     position: sticky;
-    top: 0;
+    top: 140px;
+    padding: 16px;
 }
