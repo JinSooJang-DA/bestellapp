@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bestell-App</title>
     <link rel="stylesheet" href="./styles/fonts.css">
+    <link rel="stylesheet" href="./styles/variables.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body onload="renderDishes()">
-    <!-- 상단 헤더: 스티키 아님 (스크롤 시 자연스럽게 올라감) -->
+<body onload="renderDishes(); renderBasket();">
     <header class="header-content">
         <div class="header-nav">
             <img src="./assets/icons/logo2.svg" alt="Logo" class="header-logo">
@@ -26,15 +26,12 @@
     </div>
 
     <div class="restaurant-info">
-        <h2>Burgerhouse</h2>
+        <h1>Burgerhouse</h1>
         <p>The best of Burgers, Pizza, and Greens, all in one great place.</p>
     </div>
 
-    <!-- 전체 메뉴와 스티키 장바구니를 하나의 Wrapper로 묶어 푸터 전까지 스티키 유지 -->
     <main class="content-wrapper">
-        <!-- 왼쪽 메뉴 영역 (카테고리 바 + 음식 리스트들) -->
         <section class="content">
-            <!-- 1. 버거 섹션 -->
             <div class="category-header">
                 <div class="category-inner">
                     <img src="./assets/img/chanese1.png" alt="" class="chanese-logo">
@@ -43,7 +40,6 @@
             </div>
             <div id="burger-list" class="menu-list"></div>
 
-            <!-- 2. 피자 섹션 -->
             <div class="category-header">
                 <div class="category-inner">
                     <img src="./assets/img/pizza1.png" alt="" class="chanese-logo">
@@ -52,7 +48,6 @@
             </div>
             <div id="pizza-list" class="menu-list"></div>
 
-            <!-- 3. 샐러드 섹션 -->
             <div class="category-header">
                 <div class="category-inner">
                     <img src="./assets/img/salad1.png" alt="" class="chanese-logo">
@@ -62,10 +57,12 @@
             <div id="salad-list" class="menu-list"></div>
         </section>
 
-        <!-- 오른쪽 장바구니 영역: 첫 카테고리 바 높이에서 시작하여 샐러드 끝까지 스티키 -->
+        <!-- Basket -->
         <aside class="basket-wrapper">
             <div class="basket">
-                <h2>Shopping Cart Section</h2>
+                <h2>Your Basket</h2>
+                <div id="addedItems" class="addedItems"></div>
+                <div id="basketTotal"></div>
             </div>
         </aside>
     </main>
@@ -73,8 +70,8 @@
     <footer>
         <h2>footer</h2>
     </footer>
-<script src="./scripts/db.js"></script>
-<script src="./scripts/template.js"></script>
+    <script src="./scripts/db.js"></script>
+    <script src="./scripts/template.js"></script>
     <script src="./script.js"></script>
 </body>
 

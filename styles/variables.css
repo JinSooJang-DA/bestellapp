@@ -1,0 +1,19 @@
+/* CSS Variables for easy theme management and consistency */
+:root {
+    /* Font Variables */
+    --font-h: 'Palanquin-dark', sans-serif;
+    --font-p: 'Palanquin', sans-serif;
+
+    /* Responsive Font Sizes using clamp(min, viewport, max) */
+    --font-base: clamp(0.95rem, 0.9rem + 0.25vw, 1rem);      /* 15px ~ 16px */
+    --font-lg: clamp(1.2rem, 1rem + 1vw, 1.5rem);           /* 19px ~ 24px */
+    --font-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);         /* 24px ~ 32px */
+    --font-xxl: clamp(1.8rem, 1.4rem + 1.5vw, 2.5rem);      /* 28px ~ 40px */
+    --font-xxxl: clamp(2.2rem, 1.5rem + 3vw, 4rem);         /* 35px ~ 64px */
+
+    /* Brand Colors */
+    --c-text: rgba(54, 53, 52, 1);           /* 다크 차콜 / #363534 */
+    --c-accent: rgba(231, 108, 31, 1);       /* 주황색 / #E76C1F */
+    --c-background: rgba(253, 234, 220, 1);   /* 베이지 / #FDEADC */
+    --c-white: #ffffff;                      /* 화이트 / #FFFFFF */
+}
