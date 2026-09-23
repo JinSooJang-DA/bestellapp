@@ -9,47 +9,72 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body>
+<body onload="renderDishes()">
+    <!-- 상단 헤더: 스티키 아님 (스크롤 시 자연스럽게 올라감) -->
     <header class="header-content">
         <div class="header-nav">
             <img src="./assets/icons/logo2.svg" alt="Logo" class="header-logo">
             <img src="./assets/icons/menu.svg" alt="Menu" class="header-menu-icon">
         </div>
     </header>
+
     <div class="landing-img">
         <img src="./assets/img/hero.png" alt="" class="hero-img">
         <div class="restaurant-badge">
             <img src="./assets/img/burger-2d.png" alt="Burger Icon">
         </div>
     </div>
+
     <div class="restaurant-info">
         <h2>Burgerhouse</h2>
         <p>The best of Burgers, Pizza, and Greens, all in one great place.</p>
     </div>
-    
-    <div class="category-header">
-        <div class="category-inner">
-            <img src="./assets/img/chanese1.png" alt="" class="chanese-logo">
-            <h3>Burger & Sandwiches</h3>
-        </div>
-    </div>
 
-    <div class="content-wrapper">
+    <!-- 전체 메뉴와 스티키 장바구니를 하나의 Wrapper로 묶어 푸터 전까지 스티키 유지 -->
+    <main class="content-wrapper">
+        <!-- 왼쪽 메뉴 영역 (카테고리 바 + 음식 리스트들) -->
         <section class="content">
-            <div class="menu-content">
+            <!-- 1. 버거 섹션 -->
+            <div class="category-header">
+                <div class="category-inner">
+                    <img src="./assets/img/chanese1.png" alt="" class="chanese-logo">
+                    <h3>Burger & Sandwiches</h3>
+                </div>
             </div>
+            <div id="burger-list" class="menu-list"></div>
+
+            <!-- 2. 피자 섹션 -->
+            <div class="category-header">
+                <div class="category-inner">
+                    <img src="./assets/img/pizza1.png" alt="" class="chanese-logo">
+                    <h3>Pizza (30cm)</h3>
+                </div>
+            </div>
+            <div id="pizza-list" class="menu-list"></div>
+
+            <!-- 3. 샐러드 섹션 -->
+            <div class="category-header">
+                <div class="category-inner">
+                    <img src="./assets/img/salad1.png" alt="" class="chanese-logo">
+                    <h3>Salad</h3>
+                </div>
+            </div>
+            <div id="salad-list" class="menu-list"></div>
         </section>
 
-        <section class="basket-wrapper">
+        <!-- 오른쪽 장바구니 영역: 첫 카테고리 바 높이에서 시작하여 샐러드 끝까지 스티키 -->
+        <aside class="basket-wrapper">
             <div class="basket">
                 <h2>Shopping Cart Section</h2>
             </div>
-        </section>
-    </div>
+        </aside>
+    </main>
 
     <footer>
         <h2>footer</h2>
     </footer>
+<script src="./scripts/db.js"></script>
+<script src="./scripts/template.js"></script>
     <script src="./script.js"></script>
 </body>
 
