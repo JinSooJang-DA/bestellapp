@@ -1,3 +1,4 @@
+// [1] 장바구니에 담긴 아이템인지 확인하는 보조 함수
 function getBasketItem(menuItemName) {
     for (let i = 0; i < basket.length; i++) {
         if (basket[i].name === menuItemName) {
@@ -7,6 +8,7 @@ function getBasketItem(menuItemName) {
     return null;
 }
 
+// [2] 메뉴판 카드 HTML을 만들어주는 함수
 function getMenuCardTemplate(menuItem, i) {
     const basketItem = getBasketItem(menuItem.name);
 
@@ -30,7 +32,8 @@ function getMenuCardTemplate(menuItem, i) {
             <p class="menu-card-desc">${menuItem.description}</p>
             
             <div class="menu-card-footer">
-                <button type="button" class="${buttonClass}" onclick="addToBasket(${i})">
+                <!-- ★ id="menu-btn-${i}" 가 적용된 버튼 -->
+                <button type="button" id="menu-btn-${i}" class="${buttonClass}" onclick="addToBasket(${i})">
                     ${buttonText}
                 </button>
             </div>
@@ -39,6 +42,7 @@ function getMenuCardTemplate(menuItem, i) {
     `;
 }
 
+// [3] 장바구니 안의 각 음식 아이템 HTML을 만들어주는 함수
 function getBasketItemTemplate(item, itemTotalPrice, i) {
     const isSingle = item.amount === 1;
 
@@ -85,25 +89,26 @@ function getBasketItemTemplate(item, itemTotalPrice, i) {
     `;
 }
 
+// [4] 배달/포장 스위치가 포함된 영수증 총액 함수
 function getBasketTotalTemplate(subtotal, deliveryFee, total) {
+    const activeDeliveryClass = isDelivery ? 'switch-btn active' : 'switch-btn';
+    const activePickupClass = !isDelivery ? 'switch-btn active' : 'switch-btn';
+    
+    const deliveryRowHTML = isDelivery 
+        ? `<span>${deliveryFee.toFixed(2).replace('.', ',')}€</span>` 
+        : `<span class="discount-text">- ${deliveryFee.toFixed(2).replace('.', ',')}€ (Pickup)</span>`;
+
     return `
+        <div class="delivery-switch-container">
+            <button type="button" class="${activeDeliveryClass}" onclick="toggleDeliveryOption(true)">Delivery</button>
+            <button type="button" class="${activePickupClass}" onclick="toggleDeliveryOption(false)">Pickup</button>
+        </div>
         <div class="basket-total-wrapper">
-            <div class="total-row">
-                <span>Subtotal</span>
-                <span>${subtotal.toFixed(2).replace('.', ',')}€</span>
-            </div>
-            <div class="total-row">
-                <span>Delivery fee</span>
-                <span>${deliveryFee.toFixed(2).replace('.', ',')}€</span>
-            </div>
+            <div class="total-row"><span>Subtotal</span><span>${subtotal.toFixed(2).replace('.', ',')}€</span></div>
+            <div class="total-row"><span>Delivery fee</span>${deliveryRowHTML}</div>
             <div class="total-divider"></div>
-            <div class="total-row total-bold">
-                <span>Total</span>
-                <span>${total.toFixed(2).replace('.', ',')}€</span>
-            </div>
-            <button type="button" class="btn-buy-now">
-                Buy now (${total.toFixed(2).replace('.', ',')}€)
-            </button>
+            <div class="total-row total-bold"><span>Total</span><span>${total.toFixed(2).replace('.', ',')}€</span></div>
+            <button type="button" class="btn-buy-now" onclick="checkoutOrder()">Buy now (${total.toFixed(2).replace('.', ',')}€)</button>
         </div>
     `;
 }

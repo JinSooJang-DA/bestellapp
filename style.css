@@ -1,6 +1,7 @@
 * {
     margin: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -12,14 +13,23 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: var(--font-h);
 }
 
+p {
+    font-family: var(--font-p);
+    font-weight: 400;
+}
+
 .header-content {
-    width: 100vw;
+    width: 100%;
     height: 128px;
     background-color: var(--c-accent);
     display: flex;
@@ -49,7 +59,7 @@ h1, h2, h3, h4 {
 
 .landing-img {
     position: relative;
-    margin-top: -50px;
+    margin-top: -60px;
     width: 100%;
     max-width: 1440px;
     z-index: -1;
@@ -66,18 +76,71 @@ h1, h2, h3, h4 {
     left: 50%;
     transform: translateX(-50%);
     bottom: -100px;
+    z-index: 2;
+}
+
+/* =========================================
+   레스토랑 정보
+   ========================================= */
+
+.mobile-br {
+    display: none;
 }
 
 .restaurant-info {
-    margin-top: 80px;
+    margin-top: 130px;
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 48px;
 }
 
 .restaurant-info h1 {
+    font-family: var(--font-h);
+    font-weight: 700;
     font-size: var(--font-xxxl);
+    line-height: 1.2;
+    margin: 0 0 12px 0;
 }
 
+.title-accent-text {
+    color: var(--c-accent);
+}
+
+.rating-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background-color: var(--c-background);
+    color: var(--c-text);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 20px;
+    font-family: var(--font-p);
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 8px;
+    line-height: 1.2;
+}
+
+.rating-star {
+    font-size: 24px;
+}
+
+.rating-count {
+    font-weight: 400;
+    opacity: 0.8;
+    font-size: 16px;
+}
+
+.restaurant-info p {
+    font-family: var(--font-p);
+    font-size: var(--font-lg);
+    font-weight: 700;
+    margin: 0;
+}
+
+/* =========================================
+   메인 컨텐츠 레이아웃
+   ========================================= */
 .content-wrapper {
     width: 100%;
     max-width: 1440px;
@@ -101,7 +164,7 @@ h1, h2, h3, h4 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 24px;
+    margin: 48px 0 40px 0;
     z-index: 1;
 }
 
@@ -127,12 +190,14 @@ h1, h2, h3, h4 {
     width: 91px;
     position: absolute;
     left: 16px;
-    bottom: 0px;
+    bottom: -8px;
 }
 
 .category-header h3 {
     margin: 0;
     color: var(--c-white);
+    font-family: var(--font-p);
+    font-weight: 700;
     font-size: var(--font-xxl);
 }
 
@@ -141,13 +206,17 @@ h1, h2, h3, h4 {
     min-height: 250px;
 }
 
+/* =========================================
+   메뉴 카드 레이아웃 (스마트 줄바꿈 및 슬라이딩 애니메이션)
+   ========================================= */
 .menu-card {
-    width: 100%;
+    width: calc(100% - 32px);
     max-width: 713px;
     height: auto;
     display: flex;
-    padding: 16px;
-    margin: 16px 0;
+    flex-wrap: wrap;
+    padding: 12px;
+    margin: 16px auto;
     gap: 16px;
     background-color: var(--c-background);
     border-radius: 16px;
@@ -155,19 +224,28 @@ h1, h2, h3, h4 {
 }
 
 .menu-card-img {
-    width: 207px;
-    height: 121px;
+    flex: 1 1 180px;
+    min-width: 180px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: 12px;
-    flex-shrink: 0;
 }
 
 .menu-card-right {
-    flex: 1;
-    min-width: 0;
+    flex: 999 1 250px;
+    min-width: 250px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    /* ★ 텍스트가 밀려나는 속도를 0.6초로 설정 */
+    transition: padding-left 0.3s ease-in-out;
+}
+
+/* ★ 버튼이 추가된 상태일 때 텍스트 영역을 우측으로 밀어냄 */
+.menu-card-right:has(.is-added) {
+    padding-left: 28px;
 }
 
 .menu-card-header {
@@ -178,8 +256,9 @@ h1, h2, h3, h4 {
 }
 
 .menu-card-title {
+    font-family: var(--font-p);
     font-size: var(--font-lg);
-    font-weight: 700;
+    font-weight: 600;
     margin: 0;
     flex: 1;
     min-width: 0;
@@ -196,6 +275,8 @@ h1, h2, h3, h4 {
 }
 
 .menu-card-desc {
+    font-family: var(--font-p);
+    font-weight: 500;
     font-size: var(--font-base);
     color: var(--c-text);
     opacity: 0.8;
@@ -217,12 +298,21 @@ h1, h2, h3, h4 {
     border: 1px solid #dcdcdc;
     border-radius: 20px;
     padding: 6px 14px;
+
+    /* ★ 마법의 코드 1: 글씨가 길 때의 시작 너비를 118px로 단단히 고정 */
+    width: 118px;
+    text-align: center;
+    /* 너비가 고정되므로 글씨를 예쁘게 가운데 정렬 */
+
     font-family: var(--font-p);
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    transition: all 0.2s ease;
+    /* 버튼 전체가 0.6초에 걸쳐 부드럽게 변함 */
+    transition: all 0.3s ease-in-out;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .btn-add-basket:hover {
@@ -240,14 +330,20 @@ h1, h2, h3, h4 {
     color: var(--c-accent);
     border-color: var(--c-accent);
     font-weight: 700;
+
+    /* ★ 마법의 코드 2: 장바구니에 담기면 너비가 88px로 스르륵 줄어들도록 목적지 고정 */
+    width: 88px;
 }
 
+/* =========================================
+   장바구니 (데스크톱 사이드바)
+   ========================================= */
 .basket-wrapper {
     width: 435px;
     flex-shrink: 0;
     padding-left: 24px;
     box-sizing: border-box;
-    margin-top: 24px;
+    margin-top: 48px;
     z-index: 5;
     position: sticky;
     top: 24px;
@@ -274,6 +370,38 @@ h1, h2, h3, h4 {
     color: var(--c-background);
 }
 
+.delivery-switch-container {
+    display: flex;
+    background-color: var(--c-background);
+    border-radius: 20px;
+    padding: 4px;
+    gap: 4px;
+    margin: 12px 12px 0 12px;
+}
+
+.switch-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 6px 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--c-text);
+    cursor: pointer;
+    border-radius: 16px;
+    transition: all 0.2s ease;
+}
+
+.switch-btn.active {
+    background-color: var(--c-accent);
+    color: var(--c-white);
+}
+
+.discount-text {
+    color: #4cd964;
+    font-weight: 700;
+}
+
 .basket.is-empty .addedItems {
     max-height: none;
     overflow-y: visible;
@@ -286,9 +414,12 @@ h1, h2, h3, h4 {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    /* ★ 핵심: space-between을 center로 변경하여 중앙으로 모음! */
     align-items: center;
     padding: 20px 0 40px;
+    gap: 48px;
+    /* ★ 텍스트와 아이콘 사이의 간격 */
 }
 
 .empty-basket-text {
@@ -300,7 +431,7 @@ h1, h2, h3, h4 {
 }
 
 .empty-basket-icon img {
-    margin-top: 32px;
+    /* margin-top: 32px; <-- 이 줄은 지워주세요! 위에서 설정한 gap이 대신합니다. */
     width: 120px;
     height: auto;
 }
@@ -433,7 +564,7 @@ h1, h2, h3, h4 {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 16px 12px 0 12px; 
+    padding: 16px 12px 0 12px;
     box-sizing: border-box;
 }
 
@@ -480,10 +611,454 @@ h1, h2, h3, h4 {
     transform: scale(0.98);
 }
 
-footer {
-    display: flex;
+.footer-content {
     width: 100%;
-    max-width: 1440px;
+    height: 120px;
+    background-color: var(--c-accent);
+    display: flex;
     justify-content: center;
-    padding: 32px;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+    color: var(--c-white);
+    font-size: var(--font-base);
+    font-family: var(--font-p);
+}
+
+.footer-nav span {
+    color: var(--c-white);
+}
+
+.footer-nav a {
+    color: var(--c-white);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.footer-nav a:hover {
+    opacity: 0.8;
+}
+
+/* =========================================
+   오버레이 및 주문 완료 모달
+   ========================================= */
+.d-none {
+    display: none !important;
+}
+
+.order-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+@keyframes dropFromTop {
+    0% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.order-modal {
+    background-color: var(--c-text);
+    color: var(--c-background);
+    padding: 36px 32px 32px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 380px;
+    width: 85%;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    animation: dropFromTop 0.6s cubic-bezier(0.34, 1.25, 0.64, 1) forwards;
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: var(--c-background);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.btn-close-modal:hover {
+    opacity: 1;
+}
+
+.order-modal-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.order-modal-icon img {
+    width: 60px;
+    height: auto;
+    object-fit: contain;
+}
+
+.order-modal h3 {
+    font-size: var(--font-xl);
+    margin-bottom: 8px;
+    color: var(--c-background);
+}
+
+.order-modal p {
+    font-size: var(--font-base);
+    color: var(--c-background);
+    opacity: 0.85;
+    margin: 0;
+}
+
+/* =========================================
+   태블릿/중간 화면 반응형 (1090px 이하)
+   ========================================= */
+@media (max-width: 1090px) {
+    .category-extra-text {
+        display: none;
+    }
+}
+
+/* =========================================
+   기본(데스크톱) 상태: 모바일 전용 요소 숨김
+   ========================================= */
+.mobile-nav {
+    display: none;
+}
+
+.btn-close-basket {
+    display: none;
+}
+
+/* =========================================
+   768px 이하 모바일 반응형
+   ========================================= */
+@media (max-width: 768px) {
+    .header-content {
+        height: 70px;
+    }
+
+    .header-nav {
+        padding: 8px 24px;
+        justify-content: flex-start;
+    }
+
+    .header-logo {
+        height: 32px;
+        padding: 0;
+    }
+
+    .header-menu-icon {
+        display: none;
+    }
+
+    .landing-img {
+        margin-top: 16px;
+        padding: 0 16px;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    .hero-img {
+        height: 300px;
+        border-radius: 16px;
+        display: block;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .restaurant-badge {
+        bottom: -60px;
+    }
+
+    .restaurant-badge img {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+    }
+
+    .restaurant-info {
+        margin-top: 80px;
+        margin-bottom: 24px;
+    }
+
+    .restaurant-info h1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 32px;
+        line-height: 1.1;
+
+    }
+
+    .restaurant-name {
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    .restaurant-info .rating-badge {
+        order: -1;
+        margin-left: 0;
+        margin-bottom: 8px;
+    }
+
+    .mobile-br {
+        display: inline;
+    }
+
+    .restaurant-info p {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 0 20px;
+        line-height: 1.1;
+        text-align: center;
+    }
+
+    .category-header {
+        height: 60px;
+        margin: 56px 0 24px 0;
+        left: 0;
+        width: 100%;
+        position: relative;
+    }
+
+    .category-inner {
+        padding-left: 0;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .chanese-logo {
+        position: absolute;
+        top: -36px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 48px;
+        width: 48px;
+        bottom: auto;
+    }
+
+    .category-header h3 {
+        font-size: 28px;
+        font-weight: 400;
+        text-align: center;
+        margin-top: 8px;
+    }
+
+    .menu-card {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        width: calc(100% - 32px);
+        margin: 16px auto;
+    }
+
+    .menu-card-img {
+        width: 100%;
+        max-width: 100%;
+        flex: none;
+        height: auto;
+        aspect-ratio: 315 / 86;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    .menu-card-right {
+        width: 100%;
+        flex: none;
+        min-width: 0;
+        gap: 8px;
+        /* ★ 모바일에서는 텍스트 이동 해제 (강제 고정) */
+        padding-left: 0 !important;
+        transition: none;
+    }
+
+    .menu-card-header {
+        width: 100%;
+    }
+
+    .footer-content {
+        height: auto;
+        padding: 32px 16px 24px;
+        margin-top: 48px;
+    }
+
+    .footer-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .basket-wrapper {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0 16px 80px 16px;
+        box-sizing: border-box;
+        background-color: rgba(0, 0, 0, 0);
+        visibility: hidden;
+        justify-content: center;
+        align-items: flex-end;
+        z-index: 850;
+        transition: background-color 0.3s ease, visibility 0.3s;
+    }
+
+    .basket-wrapper.is-open {
+        visibility: visible;
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .basket-wrapper .basket {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-height: 80vh;
+        max-height: 92vh;
+        margin: 0;
+        border-radius: 24px;
+        border: none;
+        padding-bottom: 24px;
+        transform: translateY(150%);
+        transition: transform 0.6s cubic-bezier(0.34, 1.25, 0.64, 1);
+        position: relative;
+    }
+
+    /* ★ 추가: 모바일에서 아이템 3개까지만 온전히 보이고 스크롤되도록 제어 */
+    .addedItems {
+        /* 아이템 1개당 약 70px + 여백 = 3개가 넉넉히 들어가는 260px로 제한 */
+        max-height: 260px;
+        flex: 1 1 auto;
+        /* 부모 창이 한계(92vh)에 닿았을 때 영역이 강제로 찌그러지지 않고 자연스럽게 스크롤을 생성하는 마법의 코드 */
+        min-height: 0;
+    }
+
+    .basket-wrapper.is-open .basket {
+        transform: translateY(0);
+    }
+
+    .btn-close-basket {
+        display: block;
+        position: absolute;
+        top: 18px;
+        right: 20px;
+        background: transparent;
+        border: none;
+        color: var(--c-background);
+        font-size: 28px;
+        line-height: 1;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 64px;
+        background-color: var(--c-text);
+        justify-content: space-around;
+        align-items: center;
+        z-index: 900;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .mobile-nav-item {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 6px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mobile-nav-item img {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+    }
+
+    .mobile-nav-item .icon-default {
+        display: block;
+    }
+
+    .mobile-nav-item .icon-active,
+    .mobile-nav-item .icon-has-items {
+        display: none;
+    }
+
+    .mobile-nav-item:hover .icon-default {
+        display: none;
+    }
+
+    .mobile-nav-item:hover .icon-active {
+        display: block;
+    }
+
+    .cart-nav-btn.has-items .icon-default,
+    .cart-nav-btn.has-items .icon-active {
+        display: none !important;
+    }
+
+    .cart-nav-btn.has-items .icon-has-items {
+        display: block !important;
+    }
+
+    .mobile-cart-badge {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        background-color: #ffffff;
+        color: var(--c-accent);
+        font-family: var(--font-p);
+        font-size: 11px;
+        font-weight: 800;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 1;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+    }
+
+    body {
+        padding-bottom: 64px;
+    }
 }

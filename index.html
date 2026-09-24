@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bestell-App</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/icons/order.svg">
     <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="./styles/variables.css">
     <link rel="stylesheet" href="./style.css">
@@ -26,8 +27,16 @@
     </div>
 
     <div class="restaurant-info">
-        <h1>Burgerhouse</h1>
-        <p>The best of Burgers, Pizza, and Greens, all in one great place.</p>
+        <h1>
+            <!-- BurgerHouse 전체를 span으로 한 덩어리 포장 -->
+            <span class="restaurant-name">
+                <span class="title-accent-text">Burger</span>House
+            </span>
+            <span class="rating-badge">
+                <span class="rating-star">★</span> 4,7 <span class="rating-count">(1217)</span>
+            </span>
+        </h1>
+        <p>The best of Burgers, Pizza, and<br class="mobile-br"> Greens, all in one great place.</p>
     </div>
 
     <main class="content-wrapper">
@@ -35,7 +44,7 @@
             <div class="category-header">
                 <div class="category-inner">
                     <img src="./assets/img/chanese1.png" alt="" class="chanese-logo">
-                    <h3>Burger & Sandwiches</h3>
+                    <h3>Burgers<span class="category-extra-text"> & Sandwiches</span></h3>
                 </div>
             </div>
             <div id="burger-list" class="menu-list"></div>
@@ -43,7 +52,7 @@
             <div class="category-header">
                 <div class="category-inner">
                     <img src="./assets/img/pizza1.png" alt="" class="chanese-logo">
-                    <h3>Pizza (30cm)</h3>
+                    <h3>Pizzas (30cm)</h3>
                 </div>
             </div>
             <div id="pizza-list" class="menu-list"></div>
@@ -51,15 +60,16 @@
             <div class="category-header">
                 <div class="category-inner">
                     <img src="./assets/img/salad1.png" alt="" class="chanese-logo">
-                    <h3>Salad</h3>
+                    <h3>Salads</h3>
                 </div>
             </div>
             <div id="salad-list" class="menu-list"></div>
         </section>
 
         <!-- Basket -->
-        <aside class="basket-wrapper">
+        <aside id="basketWrapper" class="basket-wrapper">
             <div class="basket">
+                <button type="button" class="btn-close-basket" onclick="closeMobileBasket()">&times;</button>
                 <h2>Your Basket</h2>
                 <div id="addedItems" class="addedItems"></div>
                 <div id="basketTotal"></div>
@@ -67,9 +77,59 @@
         </aside>
     </main>
 
-    <footer>
-        <h2>footer</h2>
+    <footer class="footer-content">
+        <div class="footer-nav">
+            <span>&copy; 2025 BurgerHouse</span>
+            <a href="#">Imprint</a>
+            <a href="#">Cookie Preferences</a>
+        </div>
     </footer>
+
+    <!-- 모바일 하단 네비게이션 (768px 이하에서만 표시) -->
+    <nav class="mobile-nav">
+        <!-- 1. Home -->
+        <button type="button" class="mobile-nav-item">
+            <img src="./assets/icons/home.svg" alt="Home" class="icon-default">
+            <img src="./assets/icons/home-active.svg" alt="Home" class="icon-active">
+        </button>
+
+        <!-- 2. Profile -->
+        <button type="button" class="mobile-nav-item">
+            <img src="./assets/icons/human.svg" alt="Profile" class="icon-default">
+            <img src="./assets/icons/human-active.svg" alt="Profile" class="icon-active">
+        </button>
+
+        <!-- 3. Order -->
+        <button type="button" class="mobile-nav-item">
+            <img src="./assets/icons/order.svg" alt="Orders" class="icon-default">
+            <img src="./assets/icons/order-active.svg" alt="Orders" class="icon-active">
+        </button>
+
+        <!-- 4. Cart (4번째 위치, 클릭 시 바스켓 오픈) -->
+        <button type="button" class="mobile-nav-item cart-nav-btn" onclick="openMobileBasket()">
+            <!-- 1. 기본 흰색 카트 -->
+            <img src="./assets/icons/cart.svg" alt="Basket" class="icon-default">
+            <!-- 2. 호버 시 흰 사각 바탕 카트 -->
+            <img src="./assets/icons/cart-active.svg" alt="Basket" class="icon-active">
+            <!-- 3. 아이템 담겼을 때 순수 주황색 카트 -->
+            <img src="./assets/icons/cart-added.svg" alt="Basket" class="icon-has-items">
+            <!-- 4. 숫자 뱃지 -->
+            <span id="mobileCartCount" class="mobile-cart-badge d-none">0</span>
+        </button>
+    </nav>
+
+    <!-- 주문 완료 오버레이 (X 닫기 버튼 추가) -->
+    <div id="orderOverlay" class="order-overlay d-none">
+        <div class="order-modal">
+            <button type="button" class="btn-close-modal" onclick="closeOrderOverlay()">&times;</button>
+            <div class="order-modal-icon">
+                <img src="./assets/img/car.png" alt="Delivery Car">
+            </div>
+            <h3>Order confirmed!</h3>
+            <p>Your food is on the way!</p>
+        </div>
+    </div>
+
     <script src="./scripts/db.js"></script>
     <script src="./scripts/template.js"></script>
     <script src="./script.js"></script>
