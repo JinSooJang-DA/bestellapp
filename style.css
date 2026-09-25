@@ -19,10 +19,7 @@ body {
     overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
     font-family: var(--font-h);
 }
 
@@ -61,7 +58,6 @@ p {
     padding: 12px 8px;
 }
 
-/* 전체 메뉴 껍데기 */
 .nav-menu {
     position: absolute;
     top: 16px;
@@ -251,7 +247,6 @@ p {
     align-items: center;
     position: relative;
     padding-left: 120px;
-    box-sizing: border-box;
 }
 
 .chanese-logo {
@@ -290,13 +285,9 @@ p {
     min-height: 250px;
 }
 
-/* =========================================
-   메뉴 카드 레이아웃
-   ========================================= */
 .menu-card {
     width: calc(100% - 32px);
     max-width: 713px;
-    height: auto;
     display: flex;
     flex-wrap: wrap;
     padding: 12px;
@@ -304,26 +295,24 @@ p {
     gap: 16px;
     background-color: var(--c-background);
     border-radius: 16px;
-    box-sizing: border-box;
 }
 
 .menu-card-img {
     flex: 1 1 180px;
     min-width: 180px;
     max-width: 100%;
-    height: auto;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: 12px;
 }
 
 .menu-card-right {
-    flex: 999 1 250px;
+    flex: 1;
     min-width: 250px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    transition: padding-left 0.3s ease-in-out;
+    transition: padding-left 0.3s ease;
 }
 
 .menu-card-right:has(.is-added) {
@@ -368,14 +357,13 @@ p {
     word-break: break-word;
 }
 
-/* ★ 추가: 데스크톱 기본 상태에서 모바일 가격 숨김 */
 .mobile-price {
     display: none;
 }
 
 .menu-card-footer {
     display: flex;
-    justify-content: flex-end; /* 데스크톱: 버튼을 우측 정렬 */
+    justify-content: flex-end;
     align-items: center;
     margin-top: 4px;
 }
@@ -393,7 +381,7 @@ p {
     font-weight: 500;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -416,14 +404,10 @@ p {
     width: 88px;
 }
 
-/* =========================================
-   장바구니 (데스크톱 사이드바)
-   ========================================= */
 .basket-wrapper {
     width: 435px;
     flex-shrink: 0;
     padding-left: 24px;
-    box-sizing: border-box;
     margin-top: 48px;
     z-index: 5;
     position: sticky;
@@ -440,7 +424,6 @@ p {
     display: flex;
     flex-direction: column;
     height: 794px;
-    box-sizing: border-box;
 }
 
 .basket h2 {
@@ -484,20 +467,16 @@ p {
 }
 
 .basket.is-empty .addedItems {
-    max-height: none;
-    overflow-y: visible;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.empty-basket-container {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 100%;
+}
+
+.empty-basket-container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    padding: 20px 0 40px;
     gap: 48px;
 }
 
@@ -522,25 +501,12 @@ p {
     max-height: 330px;
     overflow-y: auto;
     padding-right: 6px;
-    box-sizing: border-box;
 }
 
-.addedItems::-webkit-scrollbar {
-    width: 6px;
-}
-
-.addedItems::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.addedItems::-webkit-scrollbar-thumb {
-    background: var(--c-background);
-    border-radius: 4px;
-}
-
-.addedItems::-webkit-scrollbar-thumb:hover {
-    background: rgba(253, 234, 220, 0.7);
-}
+.addedItems::-webkit-scrollbar { width: 6px; }
+.addedItems::-webkit-scrollbar-track { background: transparent; }
+.addedItems::-webkit-scrollbar-thumb { background: var(--c-background); border-radius: 4px; }
+.addedItems::-webkit-scrollbar-thumb:hover { background: rgba(253, 234, 220, 0.7); }
 
 .basket-item {
     background-color: var(--c-background);
@@ -551,7 +517,6 @@ p {
     flex-direction: column;
     gap: 6px;
     flex-shrink: 0;
-    box-sizing: border-box;
 }
 
 .basket-item-header {
@@ -614,7 +579,6 @@ p {
     line-height: 1;
     cursor: pointer;
     user-select: none;
-    box-sizing: border-box;
     transition: opacity 0.15s ease;
 }
 
@@ -643,7 +607,6 @@ p {
     flex-direction: column;
     gap: 10px;
     padding: 16px 12px 0 12px;
-    box-sizing: border-box;
 }
 
 .total-row {
@@ -741,15 +704,8 @@ p {
 }
 
 @keyframes dropFromTop {
-    0% {
-        transform: translateY(-100vh);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    from { transform: translateY(-100vh); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .order-modal {
@@ -762,7 +718,7 @@ p {
     width: 85%;
     position: relative;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    animation: dropFromTop 0.6s cubic-bezier(0.34, 1.25, 0.64, 1) forwards;
+    animation: dropFromTop 0.5s ease-out forwards;
 }
 
 .btn-close-modal {
@@ -823,38 +779,29 @@ p {
     display: none;
 }
 
-/* =========================================
-   768px 이하 모바일 반응형
-   ========================================= */
 @media (max-width: 768px) {
     .header-content {
         height: 70px;
     }
-
     .header-nav {
         padding: 8px 24px;
         justify-content: space-between;
     }
-
     .header-logo {
         height: 32px;
         padding: 0;
     }
-
     .header-menu-icon {
         display: block;
         height: 70px;
         width: 70px;
         padding: 12px 8px;
     }
-
     .landing-img {
         margin-top: 16px;
         padding: 0 16px;
-        box-sizing: border-box;
         position: relative;
     }
-
     .hero-img {
         height: 300px;
         border-radius: 16px;
@@ -862,46 +809,37 @@ p {
         width: 100%;
         object-fit: cover;
     }
-
     .restaurant-badge {
         bottom: -60px;
     }
-
     .restaurant-badge img {
         width: 120px;
         height: 120px;
         object-fit: contain;
     }
-
     .restaurant-info {
         margin-top: 80px;
         margin-bottom: 24px;
     }
-
     .restaurant-info h1 {
         display: flex;
         flex-direction: column;
         align-items: center;
         font-size: 32px;
         line-height: 1.1;
-
     }
-
     .restaurant-name {
         white-space: nowrap;
         display: inline-block;
     }
-
     .restaurant-info .rating-badge {
         order: -1;
         margin-left: 0;
         margin-bottom: 8px;
     }
-
     .mobile-br {
         display: inline;
     }
-
     .restaurant-info p {
         font-size: 16px;
         font-weight: 600;
@@ -909,7 +847,6 @@ p {
         line-height: 1.1;
         text-align: center;
     }
-
     .category-header {
         height: 60px;
         margin: 56px 0 24px 0;
@@ -917,14 +854,12 @@ p {
         width: 100%;
         position: relative;
     }
-
     .category-inner {
         padding-left: 0;
         justify-content: center;
         flex-direction: column;
         position: relative;
     }
-
     .chanese-logo {
         position: absolute;
         top: -36px;
@@ -934,21 +869,18 @@ p {
         width: 48px;
         bottom: auto;
     }
-
     .category-header h3 {
         font-size: 28px;
         font-weight: 400;
         text-align: center;
         margin-top: 8px;
     }
-
     .menu-card {
         flex-direction: column;
         flex-wrap: nowrap;
         width: calc(100% - 32px);
         margin: 16px auto;
     }
-
     .menu-card-img {
         width: 100%;
         max-width: 100%;
@@ -958,7 +890,6 @@ p {
         object-fit: cover;
         border-radius: 12px;
     }
-
     .menu-card-right {
         width: 100%;
         flex: none;
@@ -967,31 +898,24 @@ p {
         padding-left: 0 !important;
         transition: none;
     }
-
     .menu-card-header {
         width: 100%;
     }
-
-    /* ★ 추가: 모바일 환경에서 데스크톱 가격 숨김 및 하단 가격 활성화 설정 */
     .desktop-price {
         display: none; 
     }
-
     .mobile-price {
         display: block; 
     }
-
     .menu-card-footer {
-        justify-content: space-between; /* 버튼과 가격을 양쪽으로 정렬 */
-        margin-top: 12px; /* 상단 텍스트와 여백 확보 */
+        justify-content: space-between;
+        margin-top: 12px;
     }
-
     .footer-content {
         height: auto;
         padding: 32px 16px 24px;
         margin-top: 48px;
     }
-
     .footer-nav {
         display: flex;
         flex-direction: column;
@@ -1000,7 +924,17 @@ p {
         font-size: 13px;
         text-align: center;
     }
-
+    .footer-nav a:first-of-type {
+        order: 1;
+    }
+    .footer-nav a:last-of-type {
+        order: 2;
+    }
+    .footer-nav span {
+        order: 3;
+        margin-top: 2px;
+        color: var(--c-white);
+    }
     .basket-wrapper {
         display: flex;
         position: fixed;
@@ -1010,7 +944,6 @@ p {
         height: 100vh;
         margin: 0;
         padding: 0 16px 80px 16px;
-        box-sizing: border-box;
         background-color: rgba(0, 0, 0, 0);
         visibility: hidden;
         justify-content: center;
@@ -1018,12 +951,10 @@ p {
         z-index: 850;
         transition: background-color 0.3s ease, visibility 0.3s;
     }
-
     .basket-wrapper.is-open {
         visibility: visible;
         background-color: rgba(0, 0, 0, 0.6);
     }
-
     .basket-wrapper .basket {
         width: 100%;
         max-width: 100%;
@@ -1035,20 +966,12 @@ p {
         border: none;
         padding-bottom: 24px;
         transform: translateY(150%);
-        transition: transform 0.6s cubic-bezier(0.34, 1.25, 0.64, 1);
+        transition: transform 0.6s ease-out;
         position: relative;
     }
-
-    .addedItems {
-        max-height: 260px;
-        flex: 1 1 auto;
-        min-height: 0;
-    }
-
     .basket-wrapper.is-open .basket {
         transform: translateY(0);
     }
-
     .btn-close-basket {
         display: block;
         position: absolute;
@@ -1062,7 +985,6 @@ p {
         cursor: pointer;
         z-index: 10;
     }
-
     .mobile-nav {
         display: flex;
         position: fixed;
@@ -1076,7 +998,6 @@ p {
         z-index: 900;
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
     }
-
     .mobile-nav-item {
         background: transparent;
         border: none;
@@ -1087,39 +1008,31 @@ p {
         justify-content: center;
         align-items: center;
     }
-
     .mobile-nav-item img {
         width: 28px;
         height: 28px;
         object-fit: contain;
     }
-
     .mobile-nav-item .icon-default {
         display: block;
     }
-
     .mobile-nav-item .icon-active,
     .mobile-nav-item .icon-has-items {
         display: none;
     }
-
     .mobile-nav-item:hover .icon-default {
         display: none;
     }
-
     .mobile-nav-item:hover .icon-active {
         display: block;
     }
-
     .cart-nav-btn.has-items .icon-default,
     .cart-nav-btn.has-items .icon-active {
         display: none !important;
     }
-
     .cart-nav-btn.has-items .icon-has-items {
         display: block !important;
     }
-
     .mobile-cart-badge {
         position: absolute;
         top: 2px;
@@ -1139,7 +1052,6 @@ p {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         pointer-events: none;
     }
-
     body {
         padding-bottom: 64px;
     }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,21 +9,14 @@
     <link rel="stylesheet" href="./styles/variables.css">
     <link rel="stylesheet" href="./style.css">
 </head>
-
 <body onload="renderDishes(); renderBasket();">
     <header class="header-content">
         <div class="header-nav">
             <img src="./assets/icons/logo2.svg" alt="Logo" class="header-logo">
-
-            <!-- ★ 메뉴 버튼과 메뉴창을 하나로 묶어주는 래퍼 -->
             <div class="menu-wrapper" style="position: relative; display: flex; align-items: center;">
-
-                <!-- 햄버거 아이콘 (버튼) -->
                 <button type="button" class="btn-menu" onclick="categoryMenu()">
                     <img id="btn-menu" src="./assets/icons/menu.svg" alt="Menu" class="header-menu-icon">
                 </button>
-
-                <!-- 나타날 메뉴 전체 -->
                 <nav id="nav-menu" class="nav-menu">
                     <div class="menu-drawer-header">Menu</div>
                     <ul class="menu-category-list">
@@ -33,7 +25,6 @@
                         <li><a href="javascript:void(0)" onclick="goToCategory('salads')">Salads</a></li>
                     </ul>
                 </nav>
-
             </div>
         </div>
     </header>
@@ -47,7 +38,6 @@
 
     <div class="restaurant-info">
         <h1>
-            <!-- BurgerHouse 전체를 span으로 한 덩어리 포장 -->
             <span class="restaurant-name">
                 <span class="title-accent-text">Burger</span>House
             </span>
@@ -85,7 +75,6 @@
             <div id="salad-list" class="menu-list"></div>
         </section>
 
-        <!-- Basket -->
         <aside id="basketWrapper" class="basket-wrapper">
             <div class="basket">
                 <button type="button" class="btn-close-basket" onclick="closeMobileBasket()">&times;</button>
@@ -104,27 +93,19 @@
         </div>
     </footer>
 
-    <!-- 모바일 하단 네비게이션 (768px 이하에서만 표시) -->
     <nav class="mobile-nav">
-        <!-- 1. Home -->
         <button type="button" class="mobile-nav-item" onclick="window.scrollTo(0, 0)">
             <img src="./assets/icons/home.svg" alt="Home" class="icon-default">
             <img src="./assets/icons/home-active.svg" alt="Home" class="icon-active">
         </button>
-
-        <!-- 2. Profile -->
         <button type="button" class="mobile-nav-item">
             <img src="./assets/icons/human.svg" alt="Profile" class="icon-default">
             <img src="./assets/icons/human-active.svg" alt="Profile" class="icon-active">
         </button>
-
-        <!-- 3. Order -->
         <button type="button" class="mobile-nav-item">
             <img src="./assets/icons/order.svg" alt="Orders" class="icon-default">
             <img src="./assets/icons/order-active.svg" alt="Orders" class="icon-active">
         </button>
-
-        <!-- 4. Cart (4번째 위치, 클릭 시 바스켓 오픈) -->
         <button type="button" class="mobile-nav-item cart-nav-btn" onclick="openMobileBasket()">
             <img src="./assets/icons/cart.svg" alt="Basket" class="icon-default">
             <img src="./assets/icons/cart-active.svg" alt="Basket" class="icon-active">
@@ -133,7 +114,6 @@
         </button>
     </nav>
 
-    <!-- 주문 완료 오버레이 (X 닫기 버튼 추가) -->
     <div id="orderOverlay" class="order-overlay d-none">
         <div class="order-modal">
             <button type="button" class="btn-close-modal" onclick="closeOrderOverlay()">&times;</button>
@@ -149,5 +129,4 @@
     <script src="./scripts/template.js"></script>
     <script src="./script.js"></script>
 </body>
-
 </html>

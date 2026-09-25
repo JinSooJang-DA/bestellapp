@@ -1,37 +1,28 @@
 let basket = [];
-let overlayTimeout = null;
+let overlayTimeout;
 
-// ==========================================
-// 1. 기존 메뉴 렌더링 및 장바구니 조작 로직
-// ==========================================
 function renderDishes() {
-    const burgerList = document.getElementById('burger-list');
-    const pizzaList = document.getElementById('pizza-list');
-    const saladList = document.getElementById('salad-list');
-
-    burgerList.innerHTML = '';
-    pizzaList.innerHTML = '';
-    saladList.innerHTML = '';
+    document.getElementById('burger-list').innerHTML = '';
+    document.getElementById('pizza-list').innerHTML = '';
+    document.getElementById('salad-list').innerHTML = '';
 
     for (let i = 0; i < myDishes.length; i++) {
-        const menuItem = myDishes[i];
+        let menuItem = myDishes[i];
+        let html = getMenuCardTemplate(menuItem, i);
 
         if (menuItem.category === "burger") {
-            burgerList.innerHTML += getMenuCardTemplate(menuItem, i);
+            document.getElementById('burger-list').innerHTML += html;
         } else if (menuItem.category === "pizza") {
-            pizzaList.innerHTML += getMenuCardTemplate(menuItem, i);
+            document.getElementById('pizza-list').innerHTML += html;
         } else {
-            saladList.innerHTML += getMenuCardTemplate(menuItem, i);
+            document.getElementById('salad-list').innerHTML += html;
         }
     }
 }
 
 function addToBasket(index) {
-    const selectedDish = myDishes[index];
-    const basketWrapper = document.getElementById('basketWrapper');
-    if (basketWrapper) {
-        basketWrapper.classList.remove('d-none');
-    }
+    let selectedDish = myDishes[index];
+    document.getElementById('basketWrapper').classList.remove('d-none');
 
     let itemIndex = -1;
     for (let i = 0; i < basket.length; i++) {
@@ -51,18 +42,12 @@ function addToBasket(index) {
         basket[itemIndex].amount++;
     }
 
-    // 장바구니 영역 갱신
     renderBasket();
     
-    // ★ 템플릿에 있는 getBasketItem 함수를 활용하여 클릭한 버튼만 업데이트
-    const basketItem = getBasketItem(selectedDish.name);
-    const count = basketItem ? basketItem.amount : 0;
-    const btn = document.getElementById(`menu-btn-${index}`);
-    
-    if (btn) {
-        btn.classList.add('is-added');
-        btn.innerText = `Added ${count}`;
-    }
+    let basketItem = getBasketItem(selectedDish.name);
+    let btn = document.getElementById(`menu-btn-${index}`);
+    btn.classList.add('is-added');
+    btn.innerText = `Added ${basketItem.amount}`;
 }
 
 function deleteBasketItem(index) {
@@ -87,10 +72,6 @@ function increaseAmount(index) {
     renderDishes();
 }
 
-
-// ==========================================
-// 2. 정리된 장바구니 화면 제어 로직
-// ==========================================
 let isDelivery = true; 
 
 function toggleDeliveryOption(delivery) {
@@ -109,9 +90,7 @@ function renderBasket() {
 }
 
 function showEmptyBasket() {
-    const basketElement = document.querySelector('.basket');
-    if (basketElement) basketElement.classList.add('is-empty');
-    
+    document.querySelector('.basket').classList.add('is-empty');
     document.getElementById('basketTotal').innerHTML = '';
     document.getElementById('addedItems').innerHTML = `
         <div class="empty-basket-container">
@@ -122,9 +101,7 @@ function showEmptyBasket() {
 }
 
 function showBasketItems() {
-    const basketElement = document.querySelector('.basket');
-    if (basketElement) basketElement.classList.remove('is-empty');
-    
+    document.querySelector('.basket').classList.remove('is-empty');
     let itemsHTML = '';
     for (let i = 0; i < basket.length; i++) {
         let item = basket[i];
@@ -147,77 +124,49 @@ function showReceipt() {
     document.getElementById('basketTotal').innerHTML = getBasketTotalTemplate(subtotal, deliveryFee, total);
 }
 
-
-// ==========================================
-// 3. 결제 완료 모달 및 모바일 동작 로직
-// ==========================================
 function checkoutOrder() {
-    const overlay = document.getElementById('orderOverlay');
-    const basketWrapper = document.getElementById('basketWrapper');
-
     basket = [];
     renderBasket();
     renderDishes();
 
     if (window.innerWidth > 768) {
-        if (basketWrapper) {
-            basketWrapper.classList.add('d-none');
-        }
+        document.getElementById('basketWrapper').classList.add('d-none');
     } else {
         closeMobileBasket(); 
     }
 
-    if (overlay) {
-        overlay.classList.remove('d-none');
-    }
+    document.getElementById('orderOverlay').classList.remove('d-none');
 
-    if (overlayTimeout !== null) {
-        clearTimeout(overlayTimeout);
-    }
-
+    clearTimeout(overlayTimeout);
     overlayTimeout = setTimeout(function() {
         closeOrderOverlay();
     }, 3000);
 }
 
 function closeOrderOverlay() {
-    const overlay = document.getElementById('orderOverlay');
-    if (overlay) {
-        overlay.classList.add('d-none');
-    }
-    
-    if (overlayTimeout !== null) {
-        clearTimeout(overlayTimeout);
-        overlayTimeout = null;
-    }
+    document.getElementById('orderOverlay').classList.add('d-none');
 }
 
 function openMobileBasket() {
-    const basketWrapper = document.getElementById('basketWrapper');
-    if (basketWrapper) {
-        if (basketWrapper.classList.contains('is-open')) {
-            closeMobileBasket();
-            return;
-        }
-        basketWrapper.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
+    let basketWrapper = document.getElementById('basketWrapper');
+    if (basketWrapper.classList.contains('is-open')) {
+        closeMobileBasket();
+        return;
     }
+    basketWrapper.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
 }
 
 function closeMobileBasket() {
-    const basketWrapper = document.getElementById('basketWrapper');
-    if (basketWrapper) {
-        basketWrapper.classList.remove('is-open');
-        document.body.style.overflow = '';
-    }
+    document.getElementById('basketWrapper').classList.remove('is-open');
+    document.body.style.overflow = '';
 }
 
 function updateMobileCartBadge() {
-    const badge = document.getElementById('mobileCartCount');
-    const cartBtn = document.querySelector('.cart-nav-btn');
-    if (!badge) return;
-
+    let badge = document.getElementById('mobileCartCount');
+    let cartBtn = document.querySelector('.cart-nav-btn');
     let totalCount = 0;
+    
     for (let i = 0; i < basket.length; i++) {
         totalCount += basket[i].amount;
     }
@@ -225,34 +174,28 @@ function updateMobileCartBadge() {
     if (totalCount > 0) {
         badge.innerText = totalCount;
         badge.classList.remove('d-none');
-        if (cartBtn) cartBtn.classList.add('has-items');
+        cartBtn.classList.add('has-items');
     } else {
         badge.classList.add('d-none');
-        if (cartBtn) cartBtn.classList.remove('has-items');
+        cartBtn.classList.remove('has-items');
     }
 }
 
 window.addEventListener('resize', function() {
     if (window.innerWidth > 768) {
         document.body.style.overflow = ''; 
-        const basketWrapper = document.getElementById('basketWrapper');
-        if (basketWrapper) {
-            basketWrapper.classList.remove('is-open');
-        }
+        document.getElementById('basketWrapper').classList.remove('is-open');
     }
 });
 
 function categoryMenu() {
-    let menuNavOn = document.getElementById('nav-menu');
-    menuNavOn.classList.toggle('is-open');
+    document.getElementById('nav-menu').classList.toggle('is-open');
 }
 
-// 1. 브라우저의 이전 스크롤 복원 끄기
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 
-// 2. 혹시 주소창에 남아있는 해시가 있다면 제거하고 최상단 이동
 window.addEventListener('DOMContentLoaded', () => {
     if (window.location.hash) {
         history.replaceState(null, '', window.location.pathname);
@@ -260,12 +203,7 @@ window.addEventListener('DOMContentLoaded', () => {
     window.scrollTo(0, 0);
 });
 
-// 3. 해시 없이 부드럽게 이동하고 메뉴창 닫는 함수
 function goToCategory(categoryId) {
-    categoryMenu(); // 열려있는 메뉴창 닫기
-    
-    const targetElement = document.getElementById(categoryId);
-    if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-    }
+    categoryMenu();
+    document.getElementById(categoryId).scrollIntoView({ behavior: 'smooth' });
 }
