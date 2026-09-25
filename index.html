@@ -15,7 +15,26 @@
     <header class="header-content">
         <div class="header-nav">
             <img src="./assets/icons/logo2.svg" alt="Logo" class="header-logo">
-            <img src="./assets/icons/menu.svg" alt="Menu" class="header-menu-icon">
+
+            <!-- ★ 메뉴 버튼과 메뉴창을 하나로 묶어주는 래퍼 -->
+            <div class="menu-wrapper" style="position: relative; display: flex; align-items: center;">
+
+                <!-- 햄버거 아이콘 (버튼) -->
+                <button type="button" class="btn-menu" onclick="categoryMenu()">
+                    <img id="btn-menu" src="./assets/icons/menu.svg" alt="Menu" class="header-menu-icon">
+                </button>
+
+                <!-- 나타날 메뉴 전체 -->
+                <nav id="nav-menu" class="nav-menu">
+                    <div class="menu-drawer-header">Menu</div>
+                    <ul class="menu-category-list">
+                        <li><a href="javascript:void(0)" onclick="goToCategory('burgers')">Burgers</a></li>
+                        <li><a href="javascript:void(0)" onclick="goToCategory('pizzas')">Pizzas</a></li>
+                        <li><a href="javascript:void(0)" onclick="goToCategory('salads')">Salads</a></li>
+                    </ul>
+                </nav>
+
+            </div>
         </div>
     </header>
 
@@ -41,7 +60,7 @@
 
     <main class="content-wrapper">
         <section class="content">
-            <div class="category-header">
+            <div id="burgers" class="category-header">
                 <div class="category-inner">
                     <img src="./assets/img/chanese1.png" alt="" class="chanese-logo">
                     <h3>Burgers<span class="category-extra-text"> & Sandwiches</span></h3>
@@ -49,7 +68,7 @@
             </div>
             <div id="burger-list" class="menu-list"></div>
 
-            <div class="category-header">
+            <div id="pizzas" class="category-header">
                 <div class="category-inner">
                     <img src="./assets/img/pizza1.png" alt="" class="chanese-logo">
                     <h3>Pizzas (30cm)</h3>
@@ -57,7 +76,7 @@
             </div>
             <div id="pizza-list" class="menu-list"></div>
 
-            <div class="category-header">
+            <div id="salads" class="category-header">
                 <div class="category-inner">
                     <img src="./assets/img/salad1.png" alt="" class="chanese-logo">
                     <h3>Salads</h3>
@@ -88,7 +107,7 @@
     <!-- 모바일 하단 네비게이션 (768px 이하에서만 표시) -->
     <nav class="mobile-nav">
         <!-- 1. Home -->
-        <button type="button" class="mobile-nav-item">
+        <button type="button" class="mobile-nav-item" onclick="window.scrollTo(0, 0)">
             <img src="./assets/icons/home.svg" alt="Home" class="icon-default">
             <img src="./assets/icons/home-active.svg" alt="Home" class="icon-active">
         </button>
@@ -107,13 +126,9 @@
 
         <!-- 4. Cart (4번째 위치, 클릭 시 바스켓 오픈) -->
         <button type="button" class="mobile-nav-item cart-nav-btn" onclick="openMobileBasket()">
-            <!-- 1. 기본 흰색 카트 -->
             <img src="./assets/icons/cart.svg" alt="Basket" class="icon-default">
-            <!-- 2. 호버 시 흰 사각 바탕 카트 -->
             <img src="./assets/icons/cart-active.svg" alt="Basket" class="icon-active">
-            <!-- 3. 아이템 담겼을 때 순수 주황색 카트 -->
             <img src="./assets/icons/cart-added.svg" alt="Basket" class="icon-has-items">
-            <!-- 4. 숫자 뱃지 -->
             <span id="mobileCartCount" class="mobile-cart-badge d-none">0</span>
         </button>
     </nav>

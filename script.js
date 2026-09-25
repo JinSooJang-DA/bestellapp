@@ -241,3 +241,31 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
+function categoryMenu() {
+    let menuNavOn = document.getElementById('nav-menu');
+    menuNavOn.classList.toggle('is-open');
+}
+
+// 1. 브라우저의 이전 스크롤 복원 끄기
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+// 2. 혹시 주소창에 남아있는 해시가 있다면 제거하고 최상단 이동
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname);
+    }
+    window.scrollTo(0, 0);
+});
+
+// 3. 해시 없이 부드럽게 이동하고 메뉴창 닫는 함수
+function goToCategory(categoryId) {
+    categoryMenu(); // 열려있는 메뉴창 닫기
+    
+    const targetElement = document.getElementById(categoryId);
+    if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+}

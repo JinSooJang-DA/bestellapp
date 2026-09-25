@@ -22,17 +22,26 @@ function getMenuCardTemplate(menuItem, i) {
 
     return `
     <article class="menu-card">
-        <img src="${menuItem.image}" alt="${menuItem.name}" class="menu-card-img">
+        <picture>
+        <!-- 모바일 화면(768px 이하)일 때만 선명한 와이드 WebP 로드 -->
+        <source media="(max-width: 768px)" srcset="${menuItem.imageMobile}">
+        <!-- 기본(데스크톱) 화면일 때는 기존 이미지 유지 -->
+        <img src="${menuItem.image}" alt="${menuItem.name}" class="menu-card-img" loading="lazy">
+    </picture>
         <div class="menu-card-right">
             <div class="menu-card-header">
                 <h4 class="menu-card-title">${menuItem.name}</h4>
-                <span class="menu-card-price">${menuItem.price.toFixed(2).replace('.', ',')}€</span>
+                <!-- ★ 데스크톱 환경에서 상단에 표시될 가격 -->
+                <span class="menu-card-price desktop-price">${menuItem.price.toFixed(2).replace('.', ',')}€</span>
             </div>
             
             <p class="menu-card-desc">${menuItem.description}</p>
             
             <div class="menu-card-footer">
-                <!-- ★ id="menu-btn-${i}" 가 적용된 버튼 -->
+                <!-- ★ 모바일 환경에서 하단 버튼 옆에 표시될 가격 -->
+                <span class="menu-card-price mobile-price">${menuItem.price.toFixed(2).replace('.', ',')}€</span>
+                
+                <!-- id="menu-btn-${i}" 가 적용된 버튼 -->
                 <button type="button" id="menu-btn-${i}" class="${buttonClass}" onclick="addToBasket(${i})">
                     ${buttonText}
                 </button>

@@ -1,6 +1,9 @@
 * {
     margin: 0;
     box-sizing: border-box;
+}
+
+html {
     scroll-behavior: smooth;
 }
 
@@ -43,6 +46,7 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .header-logo {
@@ -55,6 +59,78 @@ p {
     height: 70px;
     width: 70px;
     padding: 12px 8px;
+}
+
+/* 전체 메뉴 껍데기 */
+.nav-menu {
+    position: absolute;
+    top: 16px;
+    right: 100%;
+    margin-right: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.menu-drawer-header {
+    font-family: var(--font-h);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--c-white);
+    text-align: right;
+    white-space: nowrap;
+    padding-right: 16px;
+    transform: translateX(30px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-category-list {
+    margin-top: 14px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    list-style: none;
+    padding: 0 16px;
+    min-width: 80px; 
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.35s ease, padding 0.35s ease;
+}
+
+.nav-menu.is-open {
+    pointer-events: auto;
+}
+
+.nav-menu.is-open .menu-drawer-header {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.nav-menu.is-open .menu-category-list {
+    max-height: 180px;
+    opacity: 1;
+    padding: 12px 16px;
+    transition: max-height 0.35s ease 0.25s, opacity 0.35s ease 0.25s, padding 0.35s ease 0.25s;
+}
+
+.menu-category-list a {
+    text-decoration: none;
+    color: var(--c-text);
+    font-family: var(--font-h);
+    font-size: 15px;
+    font-weight: 600;
+    display: block;
+    padding: 8px 0;
+    text-align: right;
+    transition: color 0.2s ease;
+}
+
+.menu-category-list a:hover {
+    color: var(--c-accent);
 }
 
 .landing-img {
@@ -78,10 +154,6 @@ p {
     bottom: -100px;
     z-index: 2;
 }
-
-/* =========================================
-   레스토랑 정보
-   ========================================= */
 
 .mobile-br {
     display: none;
@@ -138,9 +210,6 @@ p {
     margin: 0;
 }
 
-/* =========================================
-   메인 컨텐츠 레이아웃
-   ========================================= */
 .content-wrapper {
     width: 100%;
     max-width: 1440px;
@@ -201,13 +270,28 @@ p {
     font-size: var(--font-xxl);
 }
 
+.btn-menu {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-menu:hover {
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}
+
 .menu-list {
     width: 100%;
     min-height: 250px;
 }
 
 /* =========================================
-   메뉴 카드 레이아웃 (스마트 줄바꿈 및 슬라이딩 애니메이션)
+   메뉴 카드 레이아웃
    ========================================= */
 .menu-card {
     width: calc(100% - 32px);
@@ -239,11 +323,9 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* ★ 텍스트가 밀려나는 속도를 0.6초로 설정 */
     transition: padding-left 0.3s ease-in-out;
 }
 
-/* ★ 버튼이 추가된 상태일 때 텍스트 영역을 우측으로 밀어냄 */
 .menu-card-right:has(.is-added) {
     padding-left: 28px;
 }
@@ -286,9 +368,15 @@ p {
     word-break: break-word;
 }
 
+/* ★ 추가: 데스크톱 기본 상태에서 모바일 가격 숨김 */
+.mobile-price {
+    display: none;
+}
+
 .menu-card-footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end; /* 데스크톱: 버튼을 우측 정렬 */
+    align-items: center;
     margin-top: 4px;
 }
 
@@ -298,18 +386,13 @@ p {
     border: 1px solid #dcdcdc;
     border-radius: 20px;
     padding: 6px 14px;
-
-    /* ★ 마법의 코드 1: 글씨가 길 때의 시작 너비를 118px로 단단히 고정 */
     width: 118px;
     text-align: center;
-    /* 너비가 고정되므로 글씨를 예쁘게 가운데 정렬 */
-
     font-family: var(--font-p);
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    /* 버튼 전체가 0.6초에 걸쳐 부드럽게 변함 */
     transition: all 0.3s ease-in-out;
     white-space: nowrap;
     overflow: hidden;
@@ -330,8 +413,6 @@ p {
     color: var(--c-accent);
     border-color: var(--c-accent);
     font-weight: 700;
-
-    /* ★ 마법의 코드 2: 장바구니에 담기면 너비가 88px로 스르륵 줄어들도록 목적지 고정 */
     width: 88px;
 }
 
@@ -415,11 +496,9 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* ★ 핵심: space-between을 center로 변경하여 중앙으로 모음! */
     align-items: center;
     padding: 20px 0 40px;
     gap: 48px;
-    /* ★ 텍스트와 아이콘 사이의 간격 */
 }
 
 .empty-basket-text {
@@ -431,7 +510,6 @@ p {
 }
 
 .empty-basket-icon img {
-    /* margin-top: 32px; <-- 이 줄은 지워주세요! 위에서 설정한 gap이 대신합니다. */
     width: 120px;
     height: auto;
 }
@@ -645,9 +723,6 @@ p {
     opacity: 0.8;
 }
 
-/* =========================================
-   오버레이 및 주문 완료 모달
-   ========================================= */
 .d-none {
     display: none !important;
 }
@@ -734,18 +809,12 @@ p {
     margin: 0;
 }
 
-/* =========================================
-   태블릿/중간 화면 반응형 (1090px 이하)
-   ========================================= */
 @media (max-width: 1090px) {
     .category-extra-text {
         display: none;
     }
 }
 
-/* =========================================
-   기본(데스크톱) 상태: 모바일 전용 요소 숨김
-   ========================================= */
 .mobile-nav {
     display: none;
 }
@@ -764,7 +833,7 @@ p {
 
     .header-nav {
         padding: 8px 24px;
-        justify-content: flex-start;
+        justify-content: space-between;
     }
 
     .header-logo {
@@ -773,7 +842,10 @@ p {
     }
 
     .header-menu-icon {
-        display: none;
+        display: block;
+        height: 70px;
+        width: 70px;
+        padding: 12px 8px;
     }
 
     .landing-img {
@@ -892,13 +964,26 @@ p {
         flex: none;
         min-width: 0;
         gap: 8px;
-        /* ★ 모바일에서는 텍스트 이동 해제 (강제 고정) */
         padding-left: 0 !important;
         transition: none;
     }
 
     .menu-card-header {
         width: 100%;
+    }
+
+    /* ★ 추가: 모바일 환경에서 데스크톱 가격 숨김 및 하단 가격 활성화 설정 */
+    .desktop-price {
+        display: none; 
+    }
+
+    .mobile-price {
+        display: block; 
+    }
+
+    .menu-card-footer {
+        justify-content: space-between; /* 버튼과 가격을 양쪽으로 정렬 */
+        margin-top: 12px; /* 상단 텍스트와 여백 확보 */
     }
 
     .footer-content {
@@ -954,12 +1039,9 @@ p {
         position: relative;
     }
 
-    /* ★ 추가: 모바일에서 아이템 3개까지만 온전히 보이고 스크롤되도록 제어 */
     .addedItems {
-        /* 아이템 1개당 약 70px + 여백 = 3개가 넉넉히 들어가는 260px로 제한 */
         max-height: 260px;
         flex: 1 1 auto;
-        /* 부모 창이 한계(92vh)에 닿았을 때 영역이 강제로 찌그러지지 않고 자연스럽게 스크롤을 생성하는 마법의 코드 */
         min-height: 0;
     }
 
