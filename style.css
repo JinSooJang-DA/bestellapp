@@ -941,7 +941,7 @@ p {
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100dvh;
         margin: 0;
         padding: 0 16px 80px 16px;
         background-color: rgba(0, 0, 0, 0);
@@ -959,8 +959,8 @@ p {
         width: 100%;
         max-width: 100%;
         height: auto;
-        min-height: 80vh;
-        max-height: 92vh;
+        min-height: 76dvh;
+        max-height: 88dvh;
         margin: 0;
         border-radius: 24px;
         border: none;
